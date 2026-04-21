@@ -14,6 +14,7 @@ javascript:(async function(){ const viewer = window.PDFViewerApplication; if (!v
 ## 🛠️ Código Fuente (Para leer y editar)
 Este es el mismo código pero formateado para que sea fácil de entender:
 
+```javascript
 /* 
    RECONSTRUCTOR DE PDF ECAM (VERSIÓN LEGIBLE PARA CONSOLA)
 */
@@ -75,3 +76,4 @@ Este es el mismo código pero formateado para que sea fácil de entender:
     status.innerHTML = "✅ ¡LISTO! <br><br> <button onclick='window.print()' style='padding:10px; background:green; color:white; border:none; cursor:pointer;'>🖨️ IMPRIMIR / GUARDAR PDF</button>";
     win.focus();
 })();
+```
