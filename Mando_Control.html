@@ -3,40 +3,344 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mando de Control Maestro - Herramientas Digitales</title>
+    <title>Mando de Control Maestro - Antigravity Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #0f172a; --card: #1e293b; --accent: #38bdf8; --text: #f1f5f9; --subtext: #94a3b8; --code-bg: #000000; --success: #10b981; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 40px; display: flex; flex-direction: column; align-items: center; }
-        h1 { font-weight: 600; font-size: 2.5rem; margin-bottom: 10px; color: var(--accent); text-shadow: 0 0 20px rgba(56, 189, 248, 0.3); }
-        .container { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 20px; width: 100%; max-width: 1300px; }
-        .category-title { grid-column: 1 / -1; font-size: 1.4rem; margin-top: 30px; border-left: 4px solid var(--accent); padding: 8px 15px; color: var(--subtext); background: linear-gradient(90deg, rgba(56,189,248,0.1) 0%, transparent 100%); }
-        .card { background: var(--card); border-radius: 12px; padding: 20px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; }
-        .card:hover { border-color: var(--accent); transform: translateY(-3px); transition: 0.2s; }
-        h3 { margin: 0 0 10px 0; color: var(--accent); font-size: 1.1rem; }
-        .desc { font-size: 0.85rem; color: var(--subtext); margin-bottom: 12px; line-height: 1.4; flex-grow: 1; }
-        .code-box { background: var(--code-bg); padding: 10px; border-radius: 6px; font-family: monospace; font-size: 0.75rem; margin-bottom: 6px; overflow-x: auto; color: var(--success); border: 1px solid rgba(255,255,255,0.1); }
-        .label { font-size: 0.6rem; color: var(--accent); text-transform: uppercase; margin-bottom: 3px; font-weight: 600; letter-spacing: 1px; }
-        .btn-group { display: flex; gap: 6px; margin-top: 8px; }
-        .btn-copy { flex: 1; background: rgba(56, 189, 248, 0.05); border: 1px solid var(--accent); color: var(--accent); padding: 8px; border-radius: 8px; cursor: pointer; font-size: 0.7rem; font-weight: 600; }
-        .btn-copy:hover { background: var(--accent); color: var(--bg); }
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --accent: #38bdf8;
+            --text: #f1f5f9;
+            --subtext: #94a3b8;
+            --code-bg: #000000;
+            --success: #10b981;
+            --warning: #fbbf24;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            max-width: 800px;
+        }
+
+        h1 { 
+            font-weight: 600; 
+            font-size: 3rem; 
+            margin-bottom: 10px; 
+            color: var(--accent); 
+            text-shadow: 0 0 30px rgba(56, 189, 248, 0.4);
+            letter-spacing: -1px;
+        }
+
+        .subtitle { 
+            color: var(--subtext); 
+            font-size: 1.1rem; 
+            line-height: 1.6;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .category-title {
+            grid-column: 1 / -1;
+            font-size: 1.6rem;
+            margin-top: 40px;
+            border-left: 5px solid var(--accent);
+            padding: 12px 20px;
+            color: var(--text);
+            background: linear-gradient(90deg, rgba(56,189,248,0.15) 0%, transparent 100%);
+            border-radius: 0 12px 12px 0;
+            font-weight: 600;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover { 
+            transform: translateY(-8px); 
+            border-color: var(--accent);
+            box-shadow: 0 25px 30px -10px rgba(56, 189, 248, 0.2);
+        }
+
+        h3 { margin: 0 0 12px 0; color: var(--accent); font-size: 1.3rem; display: flex; align-items: center; gap: 12px; }
+        .desc { font-size: 0.95rem; color: var(--subtext); margin-bottom: 20px; line-height: 1.6; flex-grow: 1; }
+
+        .code-box-wrapper { margin-bottom: 15px; }
+        .label { font-size: 0.7rem; color: var(--accent); text-transform: uppercase; margin-bottom: 6px; font-weight: 700; letter-spacing: 1.5px; opacity: 0.9; }
+        
+        .code-box { 
+            background: var(--code-bg); 
+            padding: 14px; 
+            border-radius: 10px; 
+            font-family: 'Fira Code', 'Courier New', monospace; 
+            font-size: 0.8rem; 
+            overflow-x: auto; 
+            color: var(--success); 
+            border: 1px solid rgba(255,255,255,0.15);
+            white-space: nowrap;
+        }
+
+        .btn-group { display: flex; gap: 10px; margin-top: 15px; }
+        
+        .btn-copy { 
+            flex: 1; 
+            background: rgba(56, 189, 248, 0.08); 
+            border: 1px solid var(--accent); 
+            color: var(--accent); 
+            padding: 10px; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-size: 0.8rem; 
+            font-weight: 600; 
+            transition: all 0.3s ease;
+        }
+
+        .btn-copy:hover { 
+            background: var(--accent); 
+            color: var(--bg);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+        }
+
+        .footer { 
+            margin-top: 80px; 
+            color: var(--subtext); 
+            font-size: 0.9rem; 
+            border-top: 1px solid rgba(255,255,255,0.1); 
+            padding: 50px; 
+            text-align: center; 
+            width: 100%;
+            letter-spacing: 1px;
+        }
+
+        ::-webkit-scrollbar { height: 6px; width: 6px; }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
     </style>
 </head>
 <body>
-    <h1>🚀 Mando de Control Maestro</h1>
+
+    <header>
+        <h1>🚀 Mando de Control Maestro</h1>
+        <p class="subtitle">La estación de trabajo definitiva para el Estudiante Digital Pro. Todas tus herramientas de extracción, control y manipulación en un solo lugar.</p>
+    </header>
+
     <div class="container">
-        <div class="category-title">🎬 Control de Video</div>
-        <div class="card"><h3>⚡ Velocidad</h3><p class="desc">Cambia la velocidad del video (ej: 2.5x).</p><div class="label">Consola</div><div class="code-box">document.querySelector('video').playbackRate = 2.5</div><div class="label">Marcador</div><div class="code-box">javascript:(function(){document.querySelector('video').playbackRate=prompt('Velocidad:',2.5);})();</div><div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Consola</button><button class="btn-copy" onclick="copy(this,1)">Marcador</button></div></div>
-        <div class="card"><h3>⏩ Salto +10s</h3><p class="desc">Salta 10 segundos hacia adelante.</p><div class="label">Marcador / Consola</div><div class="code-box">javascript:(function(){document.querySelector('video').currentTime+=10;})();</div><div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Copiar Código</button></div></div>
-        <div class="card"><h3>📸 Captura</h3><p class="desc">Foto de la diapositiva actual en alta calidad.</p><div class="label">Marcador / Consola</div><div class="code-box">javascript:(function(){var c=document.createElement('canvas');var v=document.querySelector('video');c.width=v.videoWidth;c.height=v.videoHeight;c.getContext('2d').drawImage(v,0,0);window.open(c.toDataURL());})();</div><div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Copiar Código</button></div></div>
         
-        <div class="category-title">🛠️ Herramientas Pro</div>
-        <div class="card"><h3>📑 Reconstructor PDF</h3><p class="desc">Libera PDFs protegidos de la ECAM.</p><div class="label">Marcador</div><div class="code-box">javascript:(async function(){ const viewer = window.PDFViewerApplication; if (!viewer) { alert("Abre el PDF primero."); return; } const totalPages = viewer.pagesCount; viewer.pdfViewer.currentScaleValue = "2.5"; const win = window.open("", "_blank"); win.document.write('<html><head><title>Captura PDF</title><style>@page { margin: 0; size: auto; } body { margin: 0; padding: 0; background: #222; } #container { display: flex; flex-direction: column; align-items: center; } .page-img { display: block; width: 100%; height: auto; } @media print { body { background: white; } .page-img { width: 100vw; height: 100vh; object-fit: contain; page-break-after: always; } #status { display: none; } }</style></head><body><div id="status" style="position:fixed; top:10px; left:10px; background:black; color:lime; padding:10px; z-index:9999;">Cargando...</div><div id="container"></div></body></html>'); const container = win.document.getElementById('container'); const status = win.document.getElementById('status'); for (let i = 1; i <= totalPages; i++) { status.innerText = `Procesando Página ${i} de ${totalPages}`; viewer.page = i; await new Promise(r => setTimeout(r, 2200)); const canvas = viewer.pdfViewer.getPageView(i - 1).canvas; if (canvas) { const img = win.document.createElement('img'); img.src = canvas.toDataURL('image/jpeg', 0.95); img.className = 'page-img'; container.appendChild(img); } else { i--; await new Promise(r => setTimeout(r, 1000)); } } status.innerHTML = "✅ LISTO! <button onclick=\'window.print()\'>IMPRIMIR</button>"; win.focus(); })();</div><div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Copiar Marcador</button></div></div>
-        <div class="card"><h3>🎥 Zoom Extractor</h3><p class="desc">Consigue el enlace directo de Zoom.</p><div class="label">Marcador / Consola</div><div class="code-box">javascript:(function(){ var v = document.querySelector('video'); if (v && v.src) { prompt("URL:", v.src); } else { alert("Error"); } })();</div><div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Copiar Código</button></div></div>
-        
-        <div class="category-title">🔓 Extracción y Seguridad</div>
-        <div class="card"><h3>🌐 Liberar URL</h3><p class="desc">Saca la URL real de ventanas emergentes.</p><div class="label">Consola</div><div class="code-box">location.href</div><div class="label">Marcador</div><div class="code-box">javascript:alert(location.href);</div><div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Consola</button><button class="btn-copy" onclick="copy(this,1)">Marcador</button></div></div>
-        <div class="card"><h3>👁️ Passwords</h3><p class="desc">Convierte asteriscos en texto visible.</p><div class="label">Marcador / Consola</div><div class="code-box">javascript:(function(){document.querySelectorAll('input[type="password"]').forEach(p=>p.type='text');})();</div><div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Copiar Código</button></div></div>
-        
-        <div class="category-title">✏️ Manipulación</div>
-        <div class="card"><h3>✍️ Modo Edición</h3><p class="desc">Web editable directamente como Word.</p><div class="label">Marcador /
+        <!-- CATEGORÍA: HERRAMIENTAS DE HOY -->
+        <div class="category-title">🛠️ Herramientas Especiales (ECAM / Zoom)</div>
+
+        <div class="card">
+            <h3>📑 Reconstructor de PDF</h3>
+            <p class="desc">Captura, reconstruye y libera PDFs protegidos de plataformas tipo ECAM. Genera una versión lista para imprimir.</p>
+            <div class="code-box-wrapper">
+                <div class="label">Marcador</div>
+                <div class="code-box">javascript:(async function(){ const viewer = window.PDFViewerApplication; if (!viewer) { alert("Abre el PDF primero."); return; } const totalPages = viewer.pagesCount; viewer.pdfViewer.currentScaleValue = "2.5"; const win = window.open("", "_blank"); win.document.write('<html><head><title>Captura PDF</title><style>@page { margin: 0; size: auto; } body { margin: 0; padding: 0; background: #222; } #container { display: flex; flex-direction: column; align-items: center; } .page-img { display: block; width: 100%; height: auto; } @media print { body { background: white; } .page-img { width: 100vw; height: 100vh; object-fit: contain; page-break-after: always; } #status { display: none; } }</style></head><body><div id="status" style="position:fixed; top:10px; left:10px; background:black; color:lime; padding:10px; z-index:9999;">Cargando...</div><div id="container"></div></body></html>'); const container = win.document.getElementById('container'); const status = win.document.getElementById('status'); for (let i = 1; i <= totalPages; i++) { status.innerText = `Procesando Página ${i} de ${totalPages}`; viewer.page = i; await new Promise(r => setTimeout(r, 2200)); const canvas = viewer.pdfViewer.getPageView(i - 1).canvas; if (canvas) { const img = win.document.createElement('img'); img.src = canvas.toDataURL('image/jpeg', 0.95); img.className = 'page-img'; container.appendChild(img); } else { i--; await new Promise(r => setTimeout(r, 1000)); } } status.innerHTML = "✅ LISTO! <button onclick=\'window.print()\'>IMPRIMIR</button>"; win.focus(); })();</div>
+            </div>
+            <div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Copiar Marcador</button></div>
+        </div>
+
+        <div class="card">
+            <h3>🎥 Zoom Video Hunter</h3>
+            <p class="desc">Caza el enlace directo del archivo de video (.mp4) de Zoom para descargarlo sin restricciones.</p>
+            <div class="code-box-wrapper">
+                <div class="label">Marcador / Consola</div>
+                <div class="code-box">javascript:(function(){ var v = document.querySelector('video'); if (v && v.src) { prompt("¡Enlace cazado! Cópialo:", v.src); } else { alert("Reproduce el video primero."); } })();</div>
+            </div>
+            <div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Copiar Código</button></div>
+        </div>
+
+        <!-- CATEGORÍA: VIDEO -->
+        <div class="category-title">🎬 Control de Reproducción Pro</div>
+
+        <div class="card">
+            <h3>⚡ Super Velocidad</h3>
+            <p class="desc">Aumenta la velocidad del video a 2.5x o la que prefieras, superando los límites del reproductor.</p>
+            <div class="code-box-wrapper">
+                <div class="label">Consola</div><div class="code-box">document.querySelector('video').playbackRate = 2.5</div>
+                <div class="label">Marcador</div><div class="code-box">javascript:(function(){document.querySelector('video').playbackRate=prompt('Velocidad:',2.5);})();</div>
+            </div>
+            <div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Consola</button><button class="btn-copy" onclick="copy(this,1)">Marcador</button></div>
+        </div>
+
+        <div class="card">
+            <h3>⏩ Salto de Precisión (+10s)</h3>
+            <p class="desc">Salta exactamente 10 segundos hacia adelante. Útil para saltar intros o anuncios rápidamente.</p>
+            <div class="code-box-wrapper">
+                <div class="label">Marcador / Consola</div>
+                <div class="code-box">javascript:(function(){document.querySelector('video').currentTime+=10;})();</div>
+            </div>
+            <div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Copiar Código</button></div>
+        </div>
+
+        <div class="card">
+            <h3>📸 Captura de Diapositiva</h3>
+            <p class="desc">Extrae una imagen del momento exacto del video en alta calidad. Se abre en una pestaña nueva.</p>
+            <div class="code-box-wrapper">
+                <div class="label">Marcador / Consola</div>
+                <div class="code-box">javascript:(function(){var c=document.createElement('canvas');var v=document.querySelector('video');c.width=v.videoWidth;c.height=v.videoHeight;c.getContext('2d').drawImage(v,0,0);window.open(c.toDataURL());})();</div>
+            </div>
+            <div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Copiar Código</button></div>
+        </div>
+
+        <div class="card">
+            <h3>📺 Forzar Fullscreen</h3>
+            <p class="desc">Obliga al video a ponerse en pantalla completa aunque el botón de la web no funcione.</p>
+            <div class="code-box-wrapper">
+                <div class="label">Marcador / Consola</div>
+                <div class="code-box">javascript:(function(){document.querySelector('video').requestFullscreen();})();</div>
+            </div>
+            <div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Copiar Código</button></div>
+        </div>
+
+        <!-- CATEGORÍA: EXTRACCIÓN -->
+        <div class="category-title">🔓 Extracción de Datos y Seguridad</div>
+
+        <div class="card">
+            <h3>🌐 Liberar URL (Popup)</h3>
+            <p class="desc">Extrae la dirección real de ventanas emergentes para abrirlas en pestañas normales con herramientas.</p>
+            <div class="code-box-wrapper">
+                <div class="label">Consola</div><div class="code-box">location.href</div>
+                <div class="label">Marcador</div><div class="code-box">javascript:alert(location.href);</div>
+            </div>
+            <div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Consola</button><button class="btn-copy" onclick="copy(this,1)">Marcador</button></div>
+        </div>
+
+        <div class="card">
+            <h3>👁️ Revelar Contraseñas</h3>
+            <p class="desc">Convierte los puntos o asteriscos de los campos de contraseña en texto legible.</p>
+            <div class="code-box-wrapper">
+                <div class="label">Marcador / Consola</div>
+                <div class="code-box">javascript:(function(){document.querySelectorAll('input[type="password"]').forEach(p=>p.type='text');})();</div>
+            </div>
+            <div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Copiar Código</button></div>
+        </div>
+
+        <div class="card">
+            <h3>🔗 Listar todos los Links</h3>
+            <p class="desc">Extrae una lista de todas las direcciones web (URLs) que contiene la página actual.</p>
+            <div class="code-box-wrapper">
+                <div class="label">Consola</div>
+                <div class="code-box">Array.from(document.querySelectorAll('a')).map(a => a.href)</div>
+            </div>
+            <div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Copiar Código</button></div>
+        </div>
+
+        <!-- CATEGORÍA: MANIPULACIÓN -->
+        <div class="category-title">✏️ Manipulación Visual y de Contenido</div>
+
+        <div class="card">
+            <h3>✍️ Modo Edición Total</h3>
+            <p class="desc">Convierte toda la web en un documento editable. Puedes borrar o cambiar cualquier texto.</p>
+            <div class="code-box-wrapper">
+                <div class="label">Marcador / Consola</div>
+                <div class="code-box">javascript:document.body.contentEditable='true';document.designMode='on';void(0);</div>
+            </div>
+            <div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Copiar Código</button></div>
+        </div>
+
+        <div class="card">
+            <h3>🌙 Modo Noche Forzado</h3>
+            <p class="desc">Invierte los colores de la web para descansar la vista en entornos oscuros.</p>
+            <div class="code-box-wrapper">
+                <div class="label">Marcador</div>
+                <div class="code-box">javascript:(function(){const s=document.createElement('style');s.innerHTML='html { filter: invert(1) hue-rotate(180deg); } img, video { filter: invert(1) hue-rotate(180deg); }';document.head.appendChild(s);})();</div>
+            </div>
+            <div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Copiar Marcador</button></div>
+        </div>
+
+        <div class="card">
+            <h3>🗑️ Borrador de Elementos</h3>
+            <p class="desc">Activa el modo borrado: el siguiente elemento donde hagas clic desaparecerá de la pantalla.</p>
+            <div class="label">Marcador / Consola</div>
+            <div class="code-box">javascript:document.addEventListener('click',e=>{e.preventDefault();e.target.remove();},{once:true})</div>
+            <div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Copiar Código</button></div>
+        </div>
+
+        <!-- CATEGORÍA: UTILIDADES -->
+        <div class="category-title">⚙️ Utilidades de Sistema</div>
+
+        <div class="card">
+            <h3>📜 Auto-Scroll Suave</h3>
+            <p class="desc">Inicia un desplazamiento automático hacia abajo para leer sin usar las manos.</p>
+            <div class="code-box-wrapper">
+                <div class="label">Consola</div>
+                <div class="code-box">var scroller = setInterval(() => window.scrollBy(0, 1), 50);</div>
+            </div>
+            <div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Copiar Código</button></div>
+        </div>
+
+        <div class="card">
+            <h3>🖨️ Forzar Impresión PDF</h3>
+            <p class="desc">Abre el menú de impresión del sistema, ideal para guardar páginas como PDF.</p>
+            <div class="code-box-wrapper">
+                <div class="label">Marcador / Consola</div>
+                <div class="code-box">javascript:window.print();</div>
+            </div>
+            <div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Copiar Código</button></div>
+        </div>
+
+        <div class="card">
+            <h3>🧹 Limpiar Consola</h3>
+            <p class="desc">Borra todo el rastro y mensajes de error de la consola de desarrollador.</p>
+            <div class="code-box-wrapper">
+                <div class="label">Consola</div>
+                <div class="code-box">clear()</div>
+            </div>
+            <div class="btn-group"><button class="btn-copy" onclick="copy(this,0)">Copiar Código</button></div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        Diseñado por Antigravity para el Estudiante Digital Maestro • Versión 2.0 • 2026
+    </div>
+
+    <script>
+        function copy(btn, type) {
+            let codeBox;
+            const wrappers = btn.closest('.card').querySelectorAll('.code-box');
+            codeBox = wrappers[type];
+            
+            const text = codeBox.innerText;
+            navigator.clipboard.writeText(text);
+            
+            const original = btn.innerText;
+            btn.innerText = "¡Copiado con éxito!";
+            btn.style.borderColor = "var(--success)";
+            btn.style.color = "var(--success)";
+            btn.style.background = "rgba(16, 185, 129, 0.1)";
+            
+            setTimeout(() => { 
+                btn.innerText = original;
+                btn.style.borderColor = "var(--accent)";
+                btn.style.color = "var(--accent)";
+                btn.style.background = "rgba(56, 189, 248, 0.08)";
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
